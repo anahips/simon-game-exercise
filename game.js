@@ -1,7 +1,7 @@
 var gamePattern = [];
 var buttonColors = ["red", "blue", "green", "yellow"];
 
-$(document).ready(function () {
+$(document).keypress(function () {
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChosenColor = buttonColors[randomNumber];
   gamePattern.push(randomChosenColor);
@@ -9,5 +9,8 @@ $(document).ready(function () {
     .fadeOut(100)
     .fadeIn(100);
 
-  console.log(randomChosenColor);
+  var audio = new Audio(`sounds/` + `${randomChosenColor}` + `.mp3`);
+  audio.play();
+
+  console.log(audio);
 });
