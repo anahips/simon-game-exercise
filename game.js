@@ -31,10 +31,10 @@ $(".btn").on("click", function (event) {
 
   playSound(userChosenColor);
   animatePress(userChosenColor);
+  checkAnswer(userChosenColor);
 });
 
 function playSound(name) {
-  console.log(name);
   var audio = new Audio(`sounds/` + name + `.mp3`);
   audio.play();
 }
@@ -45,4 +45,8 @@ function animatePress(currentColor) {
   setTimeout(function () {
     $(`#` + currentColor).removeClass("pressed");
   }, 100);
+}
+
+function checkAnswer(currentLevel) {
+  userClickedPattern.lastIndexOf(currentLevel);
 }
