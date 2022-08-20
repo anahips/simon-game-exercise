@@ -5,9 +5,6 @@ var buttonColors = ["red", "blue", "green", "yellow"];
 var level = 0;
 var started = false;
 
-console.log(userClickedPattern);
-console.log(gamePattern);
-
 $(document).keydown(function () {
   if (!started) {
     $("#level-title").text("Level " + level);
@@ -27,6 +24,7 @@ function nextSequence() {
     .fadeIn(100);
 
   playSound(randomChosenColor);
+  debugger;
 
   lastPatternColor = gamePattern[gamePattern.lastIndexOf(randomChosenColor)];
 }
@@ -42,17 +40,12 @@ $(".btn").on("click", function (event) {
   checkAnswer(lastAnswerColor);
 });
 
-function playSound(name) {
-  var audio = new Audio(`sounds/` + name + `.mp3`);
-  audio.play();
-}
-
-function animatePress(currentColor) {
-  $(`#` + currentColor).addClass("pressed");
-
-  setTimeout(function () {
-    $(`#` + currentColor).removeClass("pressed");
-  }, 100);
+function checkAnswer(currentLevel) {
+  if (currentLevel === lastPatternColor) {
+    setTimeout(nextSequence, 1000);
+  } else {
+    wrong();
+  }
 }
 
 function wrong() {
@@ -75,10 +68,15 @@ function startOver() {
   started = false;
 }
 
-function checkAnswer(currentLevel) {
-  if (currentLevel === lastPatternColor) {
-    setTimeout(nextSequence, 1000);
-  } else {
-    wrong();
-  }
+function playSound(name) {
+  var audio = new Audio(`sounds/` + name + `.mp3`);
+  audio.play();
+}
+
+function animatePress(currentColor) {
+  $(`#` + currentColor).addClass("pressed");
+
+  setTimeout(function () {
+    $(`#` + currentColor).removeClass("pressed");
+  }, 100);
 }
