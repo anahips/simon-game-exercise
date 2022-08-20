@@ -1,11 +1,12 @@
 var userClickedPattern = [];
 var gamePattern = [];
-var lastPatternColor = null;
+var lastPatternColor = "";
 var buttonColors = ["red", "blue", "green", "yellow"];
 var level = 0;
 var started = false;
 
-console.log(lastPatternColor);
+console.log(userClickedPattern);
+console.log(gamePattern);
 
 $(document).keydown(function () {
   if (!started) {
@@ -25,9 +26,9 @@ function nextSequence() {
     .fadeOut(100)
     .fadeIn(100);
 
-  lastPatternColor = gamePattern[gamePattern.lastIndexOf(randomChosenColor)];
-
   playSound(randomChosenColor);
+
+  lastPatternColor = gamePattern[gamePattern.lastIndexOf(randomChosenColor)];
 }
 
 $(".btn").on("click", function (event) {
@@ -54,10 +55,21 @@ function animatePress(currentColor) {
   }, 100);
 }
 
+function wrong() {
+  playSound("wrong");
+
+  $("body").addClass("game-over");
+  setTimeout(function () {
+    $("body").removeClass("game-over");
+  }, 200);
+
+  $("#level-title").text("Game Over, Press Any Key to Restart");
+}
+
 function checkAnswer(currentLevel) {
   if (currentLevel === lastPatternColor) {
-    console.log("success");
+    setTimeout(nextSequence, 1000);
   } else {
-    console.log("sorry");
+    wrong();
   }
 }
